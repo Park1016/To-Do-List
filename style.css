@@ -1,0 +1,102 @@
+* {
+  padding: 0;
+  margin: 0;
+  /* font-size: 120%; */
+}
+
+/*
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+ul {
+  list-style-type: none;
+  height: 50vh;
+  width: 52.5vw;
+}
+
+li {
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 30rem;
+}
+
+.section1 {
+  position: fixed;
+  top: 20vh;
+}
+
+.section2 {
+  position: fixed;
+  top: 35vh;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#inputValue {
+  position: relative;
+  padding-left: 1rem;
+  padding-right: 5.5rem;
+}
+
+.plusBtn {
+  position: absolute;
+  transform: translateX(1180%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  width: 8rem;
+  font-size: 80%;
+}
+
+.dynamicText {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dynamicEditText {
+  margin-left: 1.7rem;
+  width: 572.4px;
+  height: 45px;
+  padding: 0 19.2px;
+}
+
+.dynamicPlusBtn {
+  position: absolute;
+  transform: translateX(1225%);
+  font-size: 85%;
+  /* display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; */
+} */
