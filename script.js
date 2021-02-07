@@ -5,6 +5,9 @@ const allBtn = buttons.querySelector(".all");
 const completeBtn = buttons.querySelector(".complete");
 const incompleteBtn = buttons.querySelector(".incomplete");
 const ul = document.querySelector("ul");
+let todos;
+let List = [];
+let id = 0;
 
 function inputHandler(e){
     e.preventDefault();
@@ -15,28 +18,39 @@ function inputHandler(e){
         const li = document.createElement("li");
         const check = document.createElement("button");
         const leftList = document.createElement("div");
-        leftList.classList.add("leftList");
+        // leftList.classList.add("leftList");
 
-        check.className = "dynamicBtn checkBtn";
-        check.innerHTML = `<i class="fas fa-check"></i>`;
-        leftList.appendChild(check);
-        const span = document.createElement("span");
-        span.className = "dynamicText";
-        span.innerHTML = `${inputValue}`;
-        leftList.appendChild(span);
-        li.appendChild(leftList);
+        // check.className = "dynamicBtn checkBtn";
+        // check.innerHTML = `<i class="fas fa-check"></i>`;
+        // leftList.appendChild(check);
+        // const span = document.createElement("span");
+        // span.className = "dynamicText";
+        // span.innerHTML = `${inputValue}`;
+        // leftList.appendChild(span);
+        // li.appendChild(leftList);
 
-        saveLocalStorage(inputValue);
-
-        const editBtn = document.createElement("button");
-        editBtn.className="dynamicBtn editBtn";
-        editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
-        li.appendChild(editBtn);
-        const trashBtn = document.createElement("button");
-        trashBtn.className="dynamicBtn trashBtn";
-        trashBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
-        li.appendChild(trashBtn);
+        const item =
+        `<div class="leftList">
+            <button class="dynamicBtn checkBtn"><i class="fas fa-check"></i></button>
+            <span class="dynamicText">${inputValue}</span>
+        </div>
+        <button class="dynamicBtn editBtn"><i class="fas fa-edit"></i></button>
+        <button class="dynamicBtn trashBtn"><i class="fas fa-trash-alt"></i></button>
+        `;
+        li.innerHTML =`${item}`;
         ul.appendChild(li);
+
+        //saveLocalStorage(`${inputValue}`);
+
+        // const editBtn = document.createElement("button");
+        // editBtn.className="dynamicBtn editBtn";
+        // editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+        // li.appendChild(editBtn);
+        // const trashBtn = document.createElement("button");
+        // trashBtn.className="dynamicBtn trashBtn";
+        // trashBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
+        // li.appendChild(trashBtn);
+        // ul.appendChild(li);
         input.value="";
         }
 }
@@ -50,6 +64,10 @@ function editBtnHandler(e){
             // li
             const list = clickedBtn.parentNode.parentNode;
             const div = list.childNodes[0];
+            console.log(clickedBtn.parentNode.parentNode);
+            console.log(list.childNodes[0]);
+            console.log(list.childNodes[1]);
+            console.log(list.childNodes[2]);
             
             //console.log(list);
             // edit 버튼 누르면 새 input창 생성함
@@ -58,9 +76,16 @@ function editBtnHandler(e){
             const ListText = div.childNodes[1].innerText;
             // 기존 li의 text값을 새 input의 값에 넣음
             dynamicInput.value = ListText;
+            // 로컬스토리지에서 지운 li의 text값 삭제
+            const index = todos.indexOf((div.childNodes[1].innerText));
+            deleteLocalStorage(div.childNodes[1].innerText);
             // 기존 li의 text값을 지움
             div.childNodes[1].innerText = "";
             // 체크, 수정, 삭제 버튼 안보이게 함
+                // console.log(div.childNodes[0]);
+                // console.log(div.childNodes[1]);
+                // console.log(list.childNodes[1]);
+                // console.log(list.childNodes[2]);
             div.childNodes[0].style.display = "none";
             list.childNodes[1].style.display = "none";
             list.childNodes[2].style.display = "none";
@@ -82,8 +107,20 @@ function editBtnHandler(e){
 
             //addEventListner
             function fillDynamicInput(){
+                let li = document.querySelector("li");
+                    // let arr = [];
+                    // li.forEach((elem)=>{
+                    //     arr.push(elem);
+                    // })
+                    // console.log(li);
+                    // console.log(index);
                 // li의 text값에 새 input값(수정한 값)을 넣음
                 div.childNodes[1].innerText = dynamicInput.value;
+                     //li.splice(index, 0, "div.childNodes[1].innerText");
+                // 로컬스토리지에 수정된 text값 저장
+                //saveLocalStorage(div.childNodes[1].innerText);
+                console.log(div.childNodes[1].innerText);
+                console.log(todos.indexOf(div.childNodes[1].innerText));
                 // 안보이게 한 체크, 수정, 삭제 버튼을 다시 보이게 함
                 div.childNodes[0].style.display = "";
                 list.childNodes[1].style.display = "";
@@ -116,6 +153,8 @@ function editBtnHandler(e){
                 list.childNodes[2].style.display = "";
             })
         
+            //saveLocalStorage(`${div[0].className}, ${div[1].innerText}`);
+
         // 수정하시겠습니까? - 아니오 했을 때
         }else{
             return;
@@ -146,14 +185,22 @@ function checkBtnHandler(e){
     if(clickedBtn.classList.contains("fa-check")){
         const li = clickedBtn.parentNode.parentNode.parentNode;
         li.classList.toggle("checkedLi");
-        if(li.classList.contains("checkedLi")){
-            console.log("나중에");
-        }
+        // if(li.classList.contains("checkedLi")){
+        //     console.log("나중에");
+        // }
+        //let clickedLi = li.classList
+        //saveLocalStorage(JSON.stringify(li.classList.value));
     }
 }
 
+
+
+
+
+
+
+
 // 로컬스토리지
-let todos;
 
 // todos 유무 확인
 function checkTodosExist(){
@@ -166,6 +213,18 @@ function checkTodosExist(){
         todos = [];
     }
 }
+
+// function temprarySave(todo){
+//     return todo;
+// }
+
+// function tempraryEditSave(todo){
+//     return todo;
+// }
+
+// function totalTempSave(){
+//     tem
+// }
 
 function saveLocalStorage(todo){
     checkTodosExist();
@@ -206,8 +265,13 @@ function getLocalStorage(){
 // 제거된 list의 text를 매게변수로 받아옴
 function deleteLocalStorage(todo){
     checkTodosExist();
+    console.log(todos.indexOf(todo));
     todos.splice(todos.indexOf(todo), 1);
     localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function editSaveLocalStorage(){
+    //getLocalStorage();
 }
 
 // addEventListener
@@ -235,7 +299,7 @@ ul.addEventListener("click", (e)=>{
     checkBtnHandler(e);
 });
 
-window.addEventListener("keydown", ()=>{
+document.addEventListener("keydown", ()=>{
     ul.style.overflow = "scroll";
     // ul의 값이 없으면
     if(ul.length == 0){
@@ -243,5 +307,16 @@ window.addEventListener("keydown", ()=>{
     }
 })
 
-window.addEventListener("DOMContentLoaded", getLocalStorage);
+document.addEventListener("DOMContentLoaded", getLocalStorage);
+
+
+
+
+
+
+
+
+
+
+
 
